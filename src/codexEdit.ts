@@ -32,7 +32,7 @@ export default async function codexEdit() {
 
       if (token.isCancellationRequested) return;
 
-      const editedText = resp.data.choices[0].text;
+      const editedText = resp.data.choices?.[0].text;
       if (!editedText) return;
 
       const edit = new vscode.WorkspaceEdit();
