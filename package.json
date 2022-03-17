@@ -43,6 +43,7 @@
     "test": "node ./out/test/runTest.js",
     "package": "vsce package"
   },
+  "license": "MIT",
   "devDependencies": {
     "@types/glob": "^7.2.0",
     "@types/mocha": "^9.1.0",
