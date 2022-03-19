@@ -17,7 +17,7 @@
     "commands": [
       {
         "command": "ai-code.codexEdit",
-        "title": "Edit Current File with OpenAI Codex"
+        "title": "Edit File or Selection with OpenAI Codex"
       }
     ],
     "configuration": [

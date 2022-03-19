@@ -5,7 +5,6 @@ export function getOpenAi(): OpenAIApi | null {
   // get the API key from the settings
 
   const apiKey = vscode.workspace.getConfiguration("ai-code").get<string>("openAiApiKey");
-  console.log({ apiKey });
 
   if ((apiKey?.length ?? 0) === 0) {
     vscode.window.showErrorMessage("Please set the OpenAI API key in the extension settings");

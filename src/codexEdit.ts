@@ -5,16 +5,28 @@ export default async function codexEdit() {
   const openai = getOpenAi();
   if (!openai) return;
 
-  const initialWindow = vscode.window.activeTextEditor;
-  if (!initialWindow) return;
+  const createEdit = async (input: string, instruction: string) => {
+    const resp = await openai.createEdit("code-davinci-edit-001", {
+      input,
+      instruction,
+      temperature: 0,
+      top_p: 1,
+    });
+    return resp?.data?.choices?.[0]?.text;
+  };
 
-  const prompt = await vscode.window.showInputBox({
-    title: "Instructions for AI",
+  const activeEditor = vscode.window.activeTextEditor;
+  if (!activeEditor) return;
+
+  const instruction = await vscode.window.showInputBox({
+    title: "Instructions for OpenAI Codex",
     value: "add types to the function definitions",
   });
-  if (!prompt) return;
+  if (!instruction) return;
 
   await vscode.commands.executeCommand("workbench.action.files.saveWithoutFormatting");
+
+  let selections = activeEditor.selections.filter((selection) => !selection.isEmpty);
 
   vscode.window.withProgress(
     {
@@ -22,26 +34,31 @@ export default async function codexEdit() {
       title: "Sending edit request to OpenAI Codex",
       cancellable: true,
     },
-    async (progress, token) => {
-      const resp = await openai.createEdit("code-davinci-edit-001", {
-        input: initialWindow.document.getText(),
-        instruction: prompt,
-        temperature: 0,
-        top_p: 1,
-      });
+    async (_progress, token) => {
+      let edits: [vscode.Range, string][] = [];
+      if (selections.length > 0) {
+        await Promise.all(
+          selections.map(async (selection) => {
+            const replacement = await createEdit(
+              activeEditor.document.getText(selection),
+              instruction
+            );
+            if (replacement) edits.push([selection, replacement]);
+          })
+        );
+      } else {
+        const replacement = await createEdit(activeEditor.document.getText(), instruction);
+        if (replacement) edits.push([new vscode.Range(0, 0, 999999, 9999999), replacement]);
+        activeEditor.edit;
+      }
 
       if (token.isCancellationRequested) return;
 
-      const editedText = resp.data.choices?.[0].text;
-      if (!editedText) return;
-
-      const edit = new vscode.WorkspaceEdit();
-      edit.replace(
-        initialWindow.document.uri,
-        new vscode.Range(0, 0, 999999999, 999999999),
-        editedText
-      );
-      await vscode.workspace.applyEdit(edit);
+      activeEditor.edit((editBuilder) => {
+        edits.forEach(([selection, replacement]) => {
+          editBuilder.replace(selection, replacement);
+        });
+      });
 
       await vscode.commands.executeCommand("workbench.files.action.compareWithSaved");
     }
