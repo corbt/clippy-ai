@@ -5,10 +5,8 @@ Clippy is free to use for the moment, because it rely's on OpenAI's new [edit en
 ## How it Works
 
 "Register a new command named codexInsert"
-<video width="100%" controls>
 
-  <source src="assets/clippy-example.webm" type="video/webm">
-</video>
+![clippy-example](https://user-images.githubusercontent.com/176426/159509783-0aeafc66-6329-4172-8576-bc1561344569.gif)
 
 ## Installation
 
