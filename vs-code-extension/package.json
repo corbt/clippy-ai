@@ -1,8 +1,14 @@
 {
-  "name": "ai-code",
-  "displayName": "ai-code",
+  "name": "clippy-ai",
+  "displayName": "Clippy AI",
   "description": "OpenAI Codex client",
-  "version": "0.0.1",
+  "version": "0.1.1",
+  "publisher": "clippy-ai",
+  "icon": "icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/corbt/clippy-ai.git"
+  },
   "engines": {
     "vscode": "^1.65.0"
   },
@@ -10,21 +16,21 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:ai-code.codexEdit"
+    "onCommand:clippy-ai.codexEdit"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "ai-code.codexEdit",
-        "title": "Edit File or Selection with OpenAI Codex"
+        "command": "clippy-ai.codexEdit",
+        "title": "Clippy AI: Edit File or Selection"
       }
     ],
     "configuration": [
       {
         "title": "AI Code",
         "properties": {
-          "ai-code.openAiApiKey": {
+          "clippy-ai.openAiApiKey": {
             "title": "OpenAI API Key",
             "markdownDescription": "Create an account at https://beta.openai.com/, then copy your API key from https://beta.openai.com/account/api-keys here. You may need to add a credit card.",
             "type": "string",
@@ -41,7 +47,8 @@
     "pretest": "yarn run compile && yarn run lint",
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js",
-    "package": "vsce package"
+    "package": "vsce package --out clippy-ai-latest.vsix",
+    "vscode:install": "yarn package && code --install-extension clippy-ai-latest.vsix"
   },
   "license": "MIT",
   "devDependencies": {

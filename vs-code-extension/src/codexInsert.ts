@@ -12,7 +12,10 @@ export default async function codexEdit() {
       temperature: 0,
       top_p: 1,
     });
-    return resp?.data?.choices?.[0]?.text;
+    let suggestedEdit = resp?.data?.choices?.[0]?.text;
+
+    if (input.trimEnd() === input) return suggestedEdit?.trimEnd();
+    return suggestedEdit;
   };
 
   const activeEditor = vscode.window.activeTextEditor;
