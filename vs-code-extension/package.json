@@ -2,9 +2,9 @@
   "name": "clippy-ai",
   "displayName": "Clippy AI",
   "description": "OpenAI Codex client",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "publisher": "clippy-ai",
-  "icon": "icon.png",
+  "icon": "assets/icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/corbt/clippy-ai.git"
@@ -26,19 +26,17 @@
         "title": "Clippy AI: Edit File or Selection"
       }
     ],
-    "configuration": [
-      {
-        "title": "AI Code",
-        "properties": {
-          "clippy-ai.openAiApiKey": {
-            "title": "OpenAI API Key",
-            "markdownDescription": "Create an account at https://beta.openai.com/, then copy your API key from https://beta.openai.com/account/api-keys here. You may need to add a credit card.",
-            "type": "string",
-            "default": ""
-          }
+    "configuration": {
+      "title": "Clippy AI",
+      "properties": {
+        "clippy-ai.openaiApiKey": {
+          "title": "OpenAI API Key",
+          "markdownDescription": "Create an account at https://beta.openai.com/, then copy your API key from https://beta.openai.com/account/api-keys here.\n\nYou may need to add a credit card.",
+          "type": "string",
+          "default": ""
         }
       }
-    ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "yarn run compile",
