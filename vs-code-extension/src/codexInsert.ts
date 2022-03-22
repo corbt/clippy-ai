@@ -23,7 +23,7 @@ export default async function codexEdit() {
 
   const instruction = await vscode.window.showInputBox({
     title: "Instructions for OpenAI Codex",
-    value: "add types to the function definitions",
+    value: "",
   });
   if (!instruction) return;
 

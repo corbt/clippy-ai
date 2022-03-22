@@ -4,9 +4,9 @@ Clippy is free to use for the moment, because it rely's on OpenAI's new [edit en
 
 ## How it Works
 
-"Register a new command named codexInsert"
+#### "Register a new command named codexInsert"
 
-![clippy-example](https://user-images.githubusercontent.com/176426/159511449-6b546f89-fd3c-4fc8-8a34-75f1ad4128fb.gif)
+![clippy-example-2](https://user-images.githubusercontent.com/176426/159521875-0ec08ca0-986a-40b7-a601-6f2e55d82dad.gif)
 
 ## Installation
 
@@ -21,13 +21,41 @@ Open the command palette (eg. cmd+shift+P on the mac). Search for the new comman
 
 If no likely edit is possible, Clippy will close. Otherwise, you'll see Clippy's suggested edits appear in a few seconds in a diff view.
 
-### Sample Prompts
+## Sample Prompts
 
-It may take some time to learn what Codex is good and bad at. Here are some examples that have worked for me:
+It may take some time to learn what Clippy is good and bad at. Here are some examples that have worked for me:
 
-- `Add type hints to all function definitions`
-- `Fix all syntax errors`
-- `Remove commented-out code`
+### General
+
+#### "Add types hints to all function definitions"
+
+![Screen Shot 2022-03-22 at 4 27 50 PM](https://user-images.githubusercontent.com/176426/159518352-ce204e3b-debb-48ff-a2b2-a24eb56befdf.png)
+
+#### "Fix all syntax errors"
+
+![Screen Shot 2022-03-22 at 4 24 06 PM](https://user-images.githubusercontent.com/176426/159517547-f6bc7f18-583b-483b-af63-6317c2b08dc1.png)
+
+#### "Remove commented-out code"
+
+![Screen Shot 2022-03-22 at 4 21 58 PM](https://user-images.githubusercontent.com/176426/159516973-c7c073f4-443d-4f7e-af90-7dedafedf803.png)
+
+#### "Remove dead code"
+
+   <img width="1192" alt="Screen Shot 2022-03-22 at 4 17 07 PM" src="https://user-images.githubusercontent.com/176426/159515879-949bde46-8448-42ed-bca7-4eeb0fd47510.png">
+
+### Project-Specific
+
+#### "Add a command to package and install the extension locally"
+
+   <img width="1207" alt="Screen Shot 2022-03-22 at 4 04 02 PM" src="https://user-images.githubusercontent.com/176426/159513938-e06201a2-ec07-4b40-916a-cbd7776a1c00.png">
+
+#### "Remove all logging statements"
+
+   <img width="1236" alt="Screen Shot 2022-03-19 at 9 58 01 PM" src="https://user-images.githubusercontent.com/176426/159514343-458e7a40-62b0-425f-a2d2-dedefd4e7668.png">
+   
+#### "Fix types for the edit variable"
+   <img width="852" alt="Screen Shot 2022-03-22 at 4 12 13 PM" src="https://user-images.githubusercontent.com/176426/159514814-a9af7b0c-7499-4fdb-b026-030ff097d437.png">
+   ^ This one is particularly cool because it highlights Clippy's understanding both of my codebase and the VS Code extension API. I modified my code to require `edits` to handle either a `Selection` or a `Range`, and then used Clippy to fix the types of `edits`. I expected it to change the type to `vscode.Selection | vscode.Range`, but Clippy actually correctly realized that `vscode.Selection` is a subclass of `vscode.Range`, so `vscode.Range` is sufficient on its own!
 
 ## Extension Settings
 
