@@ -1,0 +1,47 @@
+#####
+# Documentation
+# Redwood: https://render.com/docs/deploy-redwood
+# YAML (all config values): https://render.com/docs/yaml-spec
+#####
+
+services:
+  - name: clippy-prod-web
+    type: web
+    env: static
+    buildCommand: cd app && yarn install --frozen-lockfile && yarn rw deploy render web
+    staticPublishPath: ./app/web/dist
+    envVars:
+      - key: NODE_VERSION
+        value: 16
+      - fromGroup: clippy-prod
+    domains:
+      - clippyai.com
+
+    routes:
+      - type: rewrite
+        source: /.redwood/functions/*
+        destination: https://api.clippyai.com/*
+      - type: rewrite
+        source: /*
+        destination: /index.html
+
+  - name: clippy-prod-api
+    type: web
+    env: node
+    region: oregon
+    buildCommand: cd app && yarn install --frozen-lockfile && yarn rw build api
+    startCommand: cd app && yarn rw deploy render api
+    envVars:
+      - key: NODE_VERSION
+        value: 16
+      - key: DATABASE_URL
+        fromDatabase:
+          name: clippy-prod-db
+          property: connectionString
+      - fromGroup: clippy-prod
+    domains:
+      - api.clippyai.com
+
+databases:
+  - name: clippy-prod-db
+    region: oregon

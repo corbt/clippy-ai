@@ -6,6 +6,7 @@ Clippy is free to use for the moment, because it rely's on OpenAI's new [edit en
 
 #### "Register a new command named codexInsert"
 
+Type what you want Codex to do, and get a diff back with Codex's proposed changes. A GIF is worth a thousand words:
 ![clippy-example-2](https://user-images.githubusercontent.com/176426/159521875-0ec08ca0-986a-40b7-a601-6f2e55d82dad.gif)
 
 ## Installation
