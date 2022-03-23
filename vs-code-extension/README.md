@@ -1,13 +1,12 @@
-Clippy AI is a simple wrapper around [OpenAI Codex](https://openai.com/blog/openai-codex/). It allows you to send Codex your current file as well as some instructions in plain-text English on an operation to perform. It then opens a diff view in your editor so you can easily see the suggested changes and accept or reject them.
+Clippy AI is a simple wrapper around [OpenAI Codex](https://openai.com/blog/openai-codex/). It allows you to send Codex your current file as well as some instructions in plain-text English. It then opens a diff view in your editor so you can easily see the suggested changes and accept or reject them.
 
 Clippy is free to use for the moment, because it rely's on OpenAI's new [edit endpoint](https://openai.com/blog/gpt-3-edit-insert/) which is currently free while in testing. Once OpenAI moves that endpoint into production it'll likely move to a pay-per-usage model like OpenAI's other offerings.
 
 ## How it Works
 
-#### "Register a new command named codexInsert"
+Just type what you want Codex to do, and get a diff back with Codex's proposed changes. A GIF is worth a thousand words:
 
-Type what you want Codex to do, and get a diff back with Codex's proposed changes. A GIF is worth a thousand words:
-![clippy-example-2](https://user-images.githubusercontent.com/176426/159521875-0ec08ca0-986a-40b7-a601-6f2e55d82dad.gif)
+![clippy-example-3](https://user-images.githubusercontent.com/176426/159715701-aedff3ae-e480-49b7-9284-b7a5a95c26a7.gif)
 
 ## Installation
 
@@ -57,9 +56,3 @@ It may take some time to learn what Clippy is good and bad at. Here are some exa
 #### "Fix types for the edit variable"
    <img width="852" alt="Screen Shot 2022-03-22 at 4 12 13 PM" src="https://user-images.githubusercontent.com/176426/159514814-a9af7b0c-7499-4fdb-b026-030ff097d437.png">
    ^ This one is particularly cool because it highlights Clippy's understanding both of my codebase and the VS Code extension API. I modified my code to require `edits` to handle either a `Selection` or a `Range`, and then used Clippy to fix the types of `edits`. I expected it to change the type to `vscode.Selection | vscode.Range`, but Clippy actually correctly realized that `vscode.Selection` is a subclass of `vscode.Range`, so `vscode.Range` is sufficient on its own!
-
-## Extension Settings
-
-This extension requires the following setting:
-
-- `clippy-ai.openaiApiKey`: Your OpenAI API key. Once you have an active account you can find this at https://beta.openai.com/account/api-keys.
