@@ -2,7 +2,7 @@
   "name": "clippy-ai",
   "displayName": "Clippy AI",
   "description": "OpenAI Codex client",
-  "version": "0.1.3",
+  "version": "0.2.2",
   "publisher": "clippy-ai",
   "icon": "assets/icon.png",
   "repository": {
@@ -47,7 +47,8 @@
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js",
     "package": "vsce package --out clippy-ai-latest.vsix",
-    "package-install": "yarn package && code --install-extension clippy-ai-latest.vsix"
+    "package-install": "yarn package && code --install-extension clippy-ai-latest.vsix",
+    "publish": "vsce publish"
   },
   "license": "MIT",
   "devDependencies": {

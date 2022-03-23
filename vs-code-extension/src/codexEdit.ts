@@ -6,7 +6,7 @@ export default async function codexEdit() {
   if (!activeEditor) return;
 
   const instruction = await vscode.window.showInputBox({
-    title: "Instructions for OpenAI Codex",
+    title: "Instructions for Clippy",
     value: "",
   });
   if (!instruction) return;
@@ -14,15 +14,15 @@ export default async function codexEdit() {
   await vscode.commands.executeCommand("workbench.action.files.saveWithoutFormatting");
 
   let selections = activeEditor.selections.filter((selection) => !selection.isEmpty);
+  let edits: [vscode.Range, string][] = [];
 
-  vscode.window.withProgress(
+  await vscode.window.withProgress(
     {
       location: vscode.ProgressLocation.Notification,
       title: "Sending edit request to Clippy",
       cancellable: true,
     },
     async (_progress, token) => {
-      let edits: [vscode.Range, string][] = [];
       if (selections.length > 0) {
         await Promise.all(
           selections.map(async (selection) => {
@@ -39,7 +39,6 @@ export default async function codexEdit() {
           instruction,
         });
         if (replacement) edits.push([new vscode.Range(0, 0, 999999, 9999999), replacement]);
-        activeEditor.edit;
       }
 
       if (token.isCancellationRequested) return;
@@ -49,8 +48,14 @@ export default async function codexEdit() {
           editBuilder.replace(selection, replacement);
         });
       });
-
-      await vscode.commands.executeCommand("workbench.files.action.compareWithSaved");
     }
   );
+
+  if (edits.length === 0) {
+    vscode.window.showErrorMessage(
+      "Sorry, we couldn't find any suggested edits 😢. Please try again with a different instruction."
+    );
+  } else {
+    await vscode.commands.executeCommand("workbench.files.action.compareWithSaved");
+  }
 }
