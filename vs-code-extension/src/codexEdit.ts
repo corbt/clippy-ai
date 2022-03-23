@@ -1,23 +1,7 @@
 import * as vscode from "vscode";
-import { getOpenAi } from "./openAi";
+import { createEdit } from "./client";
 
 export default async function codexEdit() {
-  const openai = getOpenAi();
-  if (!openai) return;
-
-  const createEdit = async (input: string, instruction: string) => {
-    const resp = await openai.createEdit("code-davinci-edit-001", {
-      input,
-      instruction,
-      temperature: 0,
-      top_p: 1,
-    });
-    let suggestedEdit = resp?.data?.choices?.[0]?.text;
-
-    if (input.trimEnd() === input) return suggestedEdit?.trimEnd();
-    return suggestedEdit;
-  };
-
   const activeEditor = vscode.window.activeTextEditor;
   if (!activeEditor) return;
 
@@ -42,15 +26,18 @@ export default async function codexEdit() {
       if (selections.length > 0) {
         await Promise.all(
           selections.map(async (selection) => {
-            const replacement = await createEdit(
-              activeEditor.document.getText(selection),
-              instruction
-            );
+            const replacement = await createEdit({
+              input: activeEditor.document.getText(selection),
+              instruction,
+            });
             if (replacement) edits.push([selection, replacement]);
           })
         );
       } else {
-        const replacement = await createEdit(activeEditor.document.getText(), instruction);
+        const replacement = await createEdit({
+          input: activeEditor.document.getText(),
+          instruction,
+        });
         if (replacement) edits.push([new vscode.Range(0, 0, 999999, 9999999), replacement]);
         activeEditor.edit;
       }
