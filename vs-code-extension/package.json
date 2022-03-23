@@ -32,8 +32,8 @@
         "properties": {
           "clippy-ai.apiServer": {
             "type": "string",
-            "default": "http://localhost:8911",
-            "description": "The Clippy AI API server to use."
+            "default": "https://api.clippyai.com",
+            "markdownDescription": "The Clippy AI API server to use. We have to proxy requests through a remote server to keep the OpenAI key private. The server code is all open source at https://github.com/corbt/clippy-ai/tree/main/app so you can run your own copy to maintain privacy."
           }
         }
       }

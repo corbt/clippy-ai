@@ -2,8 +2,12 @@ import fetch from "node-fetch";
 import { OaiProxyRequest, OaiProxyResponse } from "../../app/api/types/api";
 import * as vscode from "vscode";
 
+const apiServer = vscode.workspace.getConfiguration("clippy-ai").get("apiServer");
+console.log(`apiServer1: ${apiServer}`);
+
 export async function createEdit(request: OaiProxyRequest) {
-  const apiServer = vscode.workspace.getConfiguration("clippi-ai").get("apiServer");
+  const endpoint = `${apiServer}/api/edit`;
+  console.log(`apiServer2: ${apiServer}`);
   const resp = await fetch(`${apiServer}/oaiProxy`, {
     method: "POST",
     headers: {

@@ -22,7 +22,6 @@ export const handler = async (event: APIGatewayEvent, _context: Context) => {
       ...pick(params, ['input', 'instruction']),
       temperature: 0,
     })
-    console.log(resp)
 
     return {
       statusCode: 200,

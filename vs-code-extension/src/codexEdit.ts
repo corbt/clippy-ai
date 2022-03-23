@@ -18,7 +18,7 @@ export default async function codexEdit() {
   vscode.window.withProgress(
     {
       location: vscode.ProgressLocation.Notification,
-      title: "Sending edit request to OpenAI Codex",
+      title: "Sending edit request to Clippy",
       cancellable: true,
     },
     async (_progress, token) => {

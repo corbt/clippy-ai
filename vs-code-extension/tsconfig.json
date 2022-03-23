@@ -6,7 +6,6 @@
     "lib": ["ES2020"],
     "sourceMap": true,
     "rootDir": "src",
-    // "rootDirs": ["src", "../app/api/types"],
     "strict": true
   },
   "include": ["src/**/*.ts", "../app/api/types/**/*.ts"],

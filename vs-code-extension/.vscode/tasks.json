@@ -6,9 +6,6 @@
       "script": "watch",
       "problemMatcher": "$tsc-watch",
       "isBackground": true,
-      "options": {
-        "cwd": "vs-code-extension"
-      },
       "presentation": {
         "reveal": "never"
       },

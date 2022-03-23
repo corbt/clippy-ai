@@ -9,8 +9,8 @@
       "name": "Run Extension",
       "type": "extensionHost",
       "request": "launch",
-      "args": ["--extensionDevelopmentPath=${workspaceFolder}/vs-code-extension"],
-      "outFiles": ["${workspaceFolder}/vs-code-extension/out/**/*.js"],
+      "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
+      "outFiles": ["${workspaceFolder}/out/**/*.js"],
       "preLaunchTask": "${defaultBuildTask}"
     },
     {
@@ -18,10 +18,10 @@
       "type": "extensionHost",
       "request": "launch",
       "args": [
-        "--extensionDevelopmentPath=${workspaceFolder}/vs-code-extension",
-        "--extensionTestsPath=${workspaceFolder}/vs-code-extension/out/test/suite/index"
+        "--extensionDevelopmentPath=${workspaceFolder}",
+        "--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
       ],
-      "outFiles": ["${workspaceFolder}/vs-code-extension/out/test/**/*.js"],
+      "outFiles": ["${workspaceFolder}/out/test/**/*.js"],
       "preLaunchTask": "${defaultBuildTask}"
     }
   ]
