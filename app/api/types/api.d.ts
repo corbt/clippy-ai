@@ -1,6 +1,6 @@
 import type { CreateEditResponse } from 'openai'
 
-export type OaiProxyRequest = {
+export type EditSelectionRequest = {
   input: string
   instruction:
     | {
@@ -13,7 +13,7 @@ export type OaiProxyRequest = {
       }
 }
 
-export type OaiProxyResponse = {
+export type EditSelectionResponse = {
   data: CreateEditResponse
   parsedInstruction: string
 }

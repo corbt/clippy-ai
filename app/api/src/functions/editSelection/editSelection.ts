@@ -1,7 +1,7 @@
 import type { APIGatewayEvent, Context } from 'aws-lambda'
 import { Configuration, OpenAIApi } from 'openai'
 import { logger } from 'src/lib/logger'
-import { OaiProxyRequest, OaiProxyResponse } from 'types/api'
+import { EditSelectionRequest, EditSelectionResponse } from 'types/api'
 import { v1p1beta1 as speech } from '@google-cloud/speech'
 
 const openai = new OpenAIApi(
@@ -22,7 +22,7 @@ export const getTranscription = async (data: string) => {
 
 export const handler = async (event: APIGatewayEvent, _context: Context) => {
   logger.info(`Proxy call`)
-  const params = JSON.parse(event.body) as OaiProxyRequest
+  const params = JSON.parse(event.body) as EditSelectionRequest
 
   const instruction =
     params.instruction.type === 'voice'
@@ -42,7 +42,7 @@ export const handler = async (event: APIGatewayEvent, _context: Context) => {
       temperature: 0,
     })
 
-    const body: OaiProxyResponse = {
+    const body: EditSelectionResponse = {
       data: resp.data,
       parsedInstruction: instruction,
     }

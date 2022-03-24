@@ -1,8 +1,7 @@
 import { mockHttpEvent } from '@redwoodjs/testing/api'
-import { v1p1beta1 as speech } from '@google-cloud/speech'
-import { getTranscription, handler } from './oaiProxy'
+import { getTranscription, handler } from './editSelection'
 import { readFile } from 'fs/promises'
-import { OaiProxyResponse } from 'types/api'
+import { EditSelectionResponse } from 'types/api'
 
 describe('getTranscription', () => {
   it('should transcribe a base64-encoded audio file', async () => {
@@ -28,7 +27,7 @@ describe('handler', () => {
       }),
       null
     )
-    const body = JSON.parse(response.body) as OaiProxyResponse
+    const body = JSON.parse(response.body) as EditSelectionResponse
     expect(body.data.choices).toHaveLength(1)
     expect(body.data.choices[0].text).toBe('console.log("hello world")\n')
   })

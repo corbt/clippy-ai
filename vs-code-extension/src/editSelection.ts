@@ -1,9 +1,15 @@
 import * as vscode from "vscode";
-import { OaiProxyRequest } from "../../app/api/types/api";
+import { EditSelectionRequest } from "../../app/api/types/api";
 import { createEdit } from "./client";
 import recordVoiceCommand from "./recordVoiceCommand";
 
-async function getInstruction(): Promise<OaiProxyRequest["instruction"] | null> {
+/**
+ * Get an instruction from the user.
+ *
+ * If the user has voice input enabled, this will record their voice and send it to the server.
+ * Otherwise, it will prompt the user to type in an instruction.
+ */
+async function getInstruction(): Promise<EditSelectionRequest["instruction"] | null> {
   const useVoice = vscode.workspace.getConfiguration("clippy-ai").get("useVoiceInput");
 
   const instruction = useVoice
@@ -17,10 +23,10 @@ async function getInstruction(): Promise<OaiProxyRequest["instruction"] | null> 
       };
 
   if (!instruction?.contents) return null;
-  return instruction as OaiProxyRequest["instruction"];
+  return instruction as EditSelectionRequest["instruction"];
 }
 
-export default async function codexEdit() {
+export default async function editSelection() {
   const activeEditor = vscode.window.activeTextEditor;
   if (!activeEditor) return;
 

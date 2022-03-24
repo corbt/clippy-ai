@@ -16,19 +16,19 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:clippy-ai.codexEdit"
+    "onCommand:clippy-ai.editSelection"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "clippy-ai.codexEdit",
+        "command": "clippy-ai.editSelection",
         "title": "Clippy AI: Edit File or Selection"
       }
     ],
     "keybindings": [
       {
-        "command": "clippy-ai.codexEdit",
+        "command": "clippy-ai.editSelection",
         "key": "cmd+;",
         "when": "editorTextFocus"
       }
