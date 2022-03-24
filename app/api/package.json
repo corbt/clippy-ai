@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
+    "@google-cloud/speech": "^4.10.0",
     "@redwoodjs/api": "0.49.1",
     "@redwoodjs/graphql-server": "0.49.1",
     "lodash": "^4.17.21",

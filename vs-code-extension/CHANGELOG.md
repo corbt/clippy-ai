@@ -10,28 +10,16 @@ Just type what you want Codex to do, and get a diff back with Codex's proposed c
 
 ## Installation
 
-Install [this extension](https://marketplace.visualstudio.com/items?itemName=clippy-ai.clippy-ai) from the VS Code Marketplace
+1. Install [this extension](https://marketplace.visualstudio.com/items?itemName=clippy-ai.clippy-ai) from the VS Code Marketplace
+2. Create an account at https://beta.openai.com/ (you may need to add a credit card, but won't be charged for the usage of this app currently)
+3. Find your OpenAI API key [here](https://beta.openai.com/account/api-keys) and copy it.
+4. Open the VS Code settings and look for the setting named "Clippy-ai: Openai Api Key". Enter your API key from step (3) here!
 
 ## Usage
 
-Open the command palette (eg. cmd+shift+P on the mac). Search for the new command "Clippy AI: edit file or selection". (Alternatively, we bind the "cmd+;" keyboard shortcut by default.)
+Open the command palette (eg. cmd+shift+P on the mac). Search for the new command "Clippy AI: edit file or selection". When you run the command, an input box will pop up. In plain english, type the command you want Clippy to take. Clippy will send your current file and the instruction to OpenAI's "edit" endpoint and attempt to make the change. (Note that unlike [Github Copilot](https://copilot.github.com/), Clippy currently only sends the current file, not other files in your workspace.)
 
-When you run the command, an input box will pop up. In plain english, type the instruction you want Clippy to perform. Clippy will send your current file and the instruction to OpenAI's "edit" endpoint and attempt to make the change to the current file. (Note that unlike [Github Copilot](https://copilot.github.com/), Clippy currently only sends the current file, not other files in your workspace.)
-
-If no likely edit is possible, Clippy will show an error message. Otherwise, you'll see Clippy's suggested edits appear in a few seconds in a diff view.
-
-Edits can also be performed on selections; simply select some text before running Clippy to run in this mode.
-
-### Using Voice Commands
-
-Clippy AI includes experimental functionality to record commands with your voice! Note that this is highly experimental, and may not work on your machine. It has only been tested on MacOS. If you try this and nothing happens, open an issue and I'll take a look.
-
-Steps to enable:
-
-1. Install ffmpeg, eg. `brew install ffmpeg`
-2. Open your VS Code settings and search for "Clippy-ai: Use Voice Input". Check the box.
-3. Open a file you want to edit and run Clippy as normal. MacOS will prompt you to give microphone access to VS Code. Once you allow that, you should see a prompt box pop up with the placeholder "Press 'enter' to finish recording your command..."
-4. After you speak your command, press "enter". On the backend, the command is converted to text using Google's speech-to-text service, then sent to Codex like normal.
+If no likely edit is possible, Clippy will close. Otherwise, you'll see Clippy's suggested edits appear in a few seconds in a diff view.
 
 ## Sample Prompts
 

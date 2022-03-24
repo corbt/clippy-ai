@@ -4,7 +4,7 @@ import * as vscode from "vscode";
 
 const apiServer = vscode.workspace.getConfiguration("clippy-ai").get("apiServer");
 
-export async function createEdit(request: OaiProxyRequest): Promise<string | undefined> {
+export async function createEdit(request: OaiProxyRequest) {
   const resp = await fetch(`${apiServer}/oaiProxy`, {
     method: "POST",
     headers: {
@@ -14,8 +14,8 @@ export async function createEdit(request: OaiProxyRequest): Promise<string | und
   });
 
   const parsed = (await resp.json()) as OaiProxyResponse;
-  let suggestedEdit = parsed?.data?.choices?.[0]?.text;
-  if (request.input?.trimEnd() === request.input) suggestedEdit = suggestedEdit?.trimEnd();
+  let replacement = parsed?.data?.choices?.[0]?.text;
+  if (request.input?.trimEnd() === request.input) replacement = replacement?.trimEnd();
 
-  return suggestedEdit;
+  return { replacement, parsedInstruction: parsed.parsedInstruction };
 }

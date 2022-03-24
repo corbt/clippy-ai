@@ -2,7 +2,7 @@
   "name": "clippy-ai",
   "displayName": "Clippy AI",
   "description": "OpenAI Codex client",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "publisher": "clippy-ai",
   "icon": "assets/icon.png",
   "repository": {
@@ -26,6 +26,13 @@
         "title": "Clippy AI: Edit File or Selection"
       }
     ],
+    "keybindings": [
+      {
+        "command": "clippy-ai.codexEdit",
+        "key": "cmd+;",
+        "when": "editorTextFocus"
+      }
+    ],
     "configuration": [
       {
         "title": "Clippy AI",
@@ -34,6 +41,11 @@
             "type": "string",
             "default": "https://api.clippyai.com",
             "markdownDescription": "The Clippy AI API server to use. We have to proxy requests through a remote server to keep the OpenAI key private. The server code is all open source at https://github.com/corbt/clippy-ai/tree/main/app so you can run your own copy to maintain privacy."
+          },
+          "clippy-ai.useVoiceInput": {
+            "type": "boolean",
+            "default": false,
+            "markdownDescription": "THIS IS VERY EXPERIMENTAL. IF YOU TURN IT ON CLIPPY WILL MOST LIKELY BREAK. Use your voice to give Clippy AI instructions. You need ffmpeg installed for this to work, and has only been tested on MacOS."
           }
         }
       }
