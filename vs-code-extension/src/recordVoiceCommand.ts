@@ -36,7 +36,7 @@ const recordVoiceCommand = (): Promise<EditSelectionRequest["instruction"] | nul
 
       child.stdin.write("q");
     } catch (error) {
-      vscode.window.showErrorMessage(error.message);
+      vscode.window.showErrorMessage((error as Error).message);
       resolve(null);
     }
   });

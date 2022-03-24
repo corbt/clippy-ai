@@ -1,0 +1,19 @@
+on:
+  push:
+    branches:
+      - main
+name: Deploy Extension
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: yarn install --frozen-lockfile
+        working-directory: ./vs-code-extension
+      # Need to install the app node_modules since some shared types depend on them
+      - run: yarn install --frozen-lockfile
+        working-directory: ./app
+      - run: ls node_modules
+        working-directory: ./vs-code-extension
+      - run: yarn run vsce publish -p ${{ secrets.VSCE_TOKEN }}
+        working-directory: ./vs-code-extension
