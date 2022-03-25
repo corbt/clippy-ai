@@ -11,6 +11,14 @@ describe('getTranscription', () => {
     const transcript = await getTranscription(data)
     expect(transcript).toBe('remove comments')
   })
+
+  it('should transcribe a base64-encoded audio file with two channels', async () => {
+    const data = await readFile('./api/test-fixtures/command2.flac').then(
+      (data) => data.toString('base64')
+    )
+    const transcript = await getTranscription(data)
+    expect(transcript).toMatch('create a function')
+  })
 })
 
 describe('handler', () => {

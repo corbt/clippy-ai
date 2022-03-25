@@ -3,6 +3,7 @@ import { Configuration, OpenAIApi } from 'openai'
 import { logger } from 'src/lib/logger'
 import { EditSelectionRequest, EditSelectionResponse } from 'types/api'
 import { v1p1beta1 as speech } from '@google-cloud/speech'
+import mm from 'music-metadata'
 
 const openai = new OpenAIApi(
   new Configuration({
@@ -13,8 +14,16 @@ const openai = new OpenAIApi(
 const speechClient = new speech.SpeechClient()
 
 export const getTranscription = async (data: string) => {
+  const audioBytes = Buffer.from(data, 'base64')
+  const metadata = await mm.parseBuffer(audioBytes)
+  const audioChannelCount = metadata.format.numberOfChannels
+
   const [response] = await speechClient.recognize({
-    config: { languageCode: 'en-US', model: 'command_and_search' },
+    config: {
+      languageCode: 'en-US',
+      model: 'command_and_search',
+      audioChannelCount,
+    },
     audio: { content: data },
   })
   return response.results?.[0]?.alternatives?.[0]?.transcript
@@ -31,7 +40,13 @@ export const handler = async (event: APIGatewayEvent, _context: Context) => {
 
   logger.info(
     {
-      custom: { instructionType: params.instruction.type, instruction },
+      custom: {
+        instructionType: params.instruction.type,
+        instruction,
+        version: params.version,
+        user: params.user,
+        client: params.client,
+      },
     },
     'Instruction'
   )

@@ -2,7 +2,7 @@
   "name": "clippy-ai",
   "displayName": "Clippy AI",
   "description": "OpenAI Codex client",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "publisher": "clippy-ai",
   "icon": "assets/icon.png",
   "repository": {
@@ -68,6 +68,7 @@
     "@types/mocha": "^9.1.0",
     "@types/node": "14.x",
     "@types/node-fetch": "2",
+    "@types/uuid": "^8.3.4",
     "@types/vscode": "^1.65.0",
     "@typescript-eslint/eslint-plugin": "^5.12.1",
     "@typescript-eslint/parser": "^5.12.1",
@@ -79,7 +80,9 @@
     "vsce": "^2.7.0"
   },
   "dependencies": {
+    "@expo/spawn-async": "^1.6.0",
     "node-fetch": "2",
-    "openai": "^2.0.5"
+    "openai": "^2.0.5",
+    "uuid": "^8.3.2"
   }
 }

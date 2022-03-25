@@ -11,6 +11,9 @@ export type EditSelectionRequest = {
         type: 'voice'
         contents: string
       }
+  user: string
+  client: string
+  version: string
 }
 
 export type EditSelectionResponse = {

@@ -6,7 +6,8 @@
     "lib": ["ES2020"],
     "sourceMap": true,
     "rootDir": "src",
-    "strict": true
+    "strict": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src/**/*.ts", "../app/api/types/**/*.ts"],
   "exclude": ["node_modules"]

@@ -37,6 +37,7 @@ export default async function editSelection() {
 
   let selections = activeEditor.selections.filter((selection) => !selection.isEmpty);
   let edits: [vscode.Range, Awaited<ReturnType<typeof createEdit>>][] = [];
+  let editWasCancelled = false;
 
   await vscode.window.withProgress(
     {
@@ -63,21 +64,23 @@ export default async function editSelection() {
         if (edit.replacement) edits.push([new vscode.Range(0, 0, 999999, 9999999), edit]);
       }
 
-      if (token.isCancellationRequested) return;
-
-      activeEditor.edit((editBuilder) => {
-        edits.forEach(([selection, edit]) => {
-          editBuilder.replace(selection, edit.replacement!);
-        });
-      });
+      if (token.isCancellationRequested) editWasCancelled = true;
     }
   );
+
+  if (editWasCancelled) return;
 
   if (edits.length === 0) {
     vscode.window.showErrorMessage(
       `Sorry, we couldn't find any suggested edits 😢. Your instruction was "${edits[0][1].parsedInstruction}" Please try again with a different instruction.`
     );
   } else {
+    activeEditor.edit((editBuilder) => {
+      edits.forEach(([selection, edit]) => {
+        editBuilder.replace(selection, edit.replacement!);
+      });
+    });
+
     vscode.window.showInformationMessage(`Changes for prompt "${edits[0][1].parsedInstruction}".`);
     await vscode.commands.executeCommand("workbench.files.action.compareWithSaved");
   }
