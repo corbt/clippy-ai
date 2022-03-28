@@ -55,6 +55,8 @@ export const handler = async (event: APIGatewayEvent, _context: Context) => {
       instruction,
       input: params.input,
       temperature: 0,
+      // @ts-expect-error I think the type defs are wrong here and OpenAI expects this field
+      user: params.user,
     })
 
     const body: EditSelectionResponse = {

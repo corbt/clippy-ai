@@ -2,7 +2,7 @@
   "name": "clippy-ai",
   "displayName": "Clippy AI",
   "description": "OpenAI Codex client",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "publisher": "clippy-ai",
   "icon": "assets/icon.png",
   "repository": {
