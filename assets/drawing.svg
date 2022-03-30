@@ -2,16 +2,48 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="139.0262mm"
-   height="154.31502mm"
-   viewBox="0 0 139.0262 154.31502"
+   width="139mm"
+   height="139mm"
+   viewBox="0 0 139 139"
    version="1.1"
    id="svg5"
+   inkscape:version="1.1 (c4e8f9e, 2021-05-24)"
+   sodipodi:docname="drawing.svg"
+   inkscape:export-filename="/Users/kyle/proj/clippy-ai/vs-code-extension/icon.png"
+   inkscape:export-xdpi="46.779999"
+   inkscape:export-ydpi="46.779999"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="0.55678311"
+     inkscape:cx="467.8662"
+     inkscape:cy="268.50671"
+     inkscape:window-width="1440"
+     inkscape:window-height="847"
+     inkscape:window-x="205"
+     inkscape:window-y="1105"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
   <defs
      id="defs2" />
   <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
      id="layer1"
      transform="translate(-45.010098,-65.877731)">
     <path
