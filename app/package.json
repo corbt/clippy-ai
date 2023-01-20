@@ -14,6 +14,9 @@
     "extends": "@redwoodjs/eslint-config",
     "root": true
   },
+  "scripts": {
+    "start:dev": "yarn rw dev api"
+  },
   "engines": {
     "node": ">=14.17 <=16.x",
     "yarn": ">=1.15 <2"

@@ -16,7 +16,9 @@ export type EditSelectionRequest = {
   version: string
 }
 
-export type EditSelectionResponse = {
-  data: CreateEditResponse
-  parsedInstruction: string
-}
+export type EditSelectionResponse =
+  | {
+      data: CreateEditResponse
+      parsedInstruction: string
+    }
+  | { error: string }

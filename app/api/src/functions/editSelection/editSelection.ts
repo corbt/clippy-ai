@@ -71,6 +71,16 @@ export const handler = async (event: APIGatewayEvent, _context: Context) => {
       body: JSON.stringify(body),
     }
   } catch (e) {
+    let errorText = ''
+
+    if (e.response?.data?.error?.message) {
+      errorText = `OpenAI error: ${e.response.data.error.message}`
+    } else if (e.message) {
+      errorText = e.message
+    } else {
+      errorText = "We're sorry, but something went wrong."
+    }
+
     console.error(e.response)
     return {
       statusCode: 500,
@@ -78,7 +88,7 @@ export const handler = async (event: APIGatewayEvent, _context: Context) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        error: e.message,
+        error: errorText,
       }),
     }
   }

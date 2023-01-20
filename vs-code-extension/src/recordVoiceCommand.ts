@@ -7,7 +7,6 @@ import { default as spawnAsync, SpawnResult } from "@expo/spawn-async/build/spaw
 
 const getAudioDevice = async () => {
   const device = getContext().globalState.get("audioDevice");
-  console.log({ device });
   if (device) return device;
   try {
     await spawnAsync("ffmpeg", ["-f", "avfoundation", "-list_devices", "true", "-i", '""'], {});

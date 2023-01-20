@@ -39,49 +39,58 @@ export default async function editSelection() {
   let edits: [vscode.Range, Awaited<ReturnType<typeof createEdit>>][] = [];
   let editWasCancelled = false;
 
-  await vscode.window.withProgress(
-    {
-      location: vscode.ProgressLocation.Notification,
-      title: "Sending edit request to Clippy",
-      cancellable: true,
-    },
-    async (_progress, token) => {
-      if (selections.length > 0) {
-        await Promise.all(
-          selections.map(async (selection) => {
-            const edit = await createEdit({
-              input: activeEditor.document.getText(selection),
-              instruction,
-            });
-            if (edit.replacement) edits.push([selection, edit]);
-          })
-        );
-      } else {
-        const edit = await createEdit({
-          input: activeEditor.document.getText(),
-          instruction,
-        });
-        if (edit.replacement) edits.push([new vscode.Range(0, 0, 999999, 9999999), edit]);
+  try {
+    await vscode.window.withProgress(
+      {
+        location: vscode.ProgressLocation.Notification,
+        title: "Sending edit request to Clippy",
+        cancellable: true,
+      },
+      async (_progress, token) => {
+        if (selections.length > 0) {
+          await Promise.all(
+            selections.map(async (selection) => {
+              const edit = await createEdit({
+                input: activeEditor.document.getText(selection),
+                instruction,
+              });
+              if (edit.replacement) edits.push([selection, edit]);
+            })
+          );
+        } else {
+          const edit = await createEdit({
+            input: activeEditor.document.getText(),
+            instruction,
+          });
+          if (edit.replacement) edits.push([new vscode.Range(0, 0, 999999, 9999999), edit]);
+        }
+
+        if (token.isCancellationRequested) editWasCancelled = true;
       }
-
-      if (token.isCancellationRequested) editWasCancelled = true;
-    }
-  );
-
-  if (editWasCancelled) return;
-
-  if (edits.length === 0) {
-    vscode.window.showErrorMessage(
-      `Sorry, we couldn't find any suggested edits 😢. Your instruction was "${edits[0][1].parsedInstruction}" Please try again with a different instruction.`
     );
-  } else {
-    activeEditor.edit((editBuilder) => {
-      edits.forEach(([selection, edit]) => {
-        editBuilder.replace(selection, edit.replacement!);
-      });
-    });
 
-    vscode.window.showInformationMessage(`Changes for prompt "${edits[0][1].parsedInstruction}".`);
-    await vscode.commands.executeCommand("workbench.files.action.compareWithSaved");
+    if (editWasCancelled) return;
+
+    if (edits.length === 0) {
+      vscode.window.showErrorMessage(
+        `Sorry, we couldn't find any suggested edits 😢. Please try again with a different instruction or a different selection.`
+      );
+    } else {
+      activeEditor.edit((editBuilder) => {
+        edits.forEach(([selection, edit]) => {
+          editBuilder.replace(selection, edit.replacement!);
+        });
+      });
+      vscode.window.showInformationMessage(
+        `Changes for prompt "${edits[0][1].parsedInstruction}".`
+      );
+      await vscode.commands.executeCommand("workbench.files.action.compareWithSaved");
+    }
+  } catch (e: any) {
+    console.error(e);
+    let errorText = "Sorry, something went wrong 😢. Please try again.";
+    if ("message" in e) errorText = e.message;
+
+    vscode.window.showErrorMessage(e.message);
   }
 }
