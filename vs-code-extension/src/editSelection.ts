@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import { EditSelectionRequest } from "../../app/api/types/api";
 import { createEdit } from "./client";
 import recordVoiceCommand from "./recordVoiceCommand";
+import { getInstructionText } from "./getInstructionText";
 
 /**
  * Get an instruction from the user.
@@ -16,10 +17,7 @@ async function getInstruction(): Promise<EditSelectionRequest["instruction"] | n
     ? await recordVoiceCommand()
     : {
         type: "text",
-        contents: await vscode.window.showInputBox({
-          title: "Instructions for Clippy",
-          value: "",
-        }),
+        contents: await getInstructionText()
       };
 
   if (!instruction?.contents) return null;
