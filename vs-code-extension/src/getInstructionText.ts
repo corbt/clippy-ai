@@ -2,11 +2,10 @@ import * as vscode from "vscode";
 import getContext from "./context";
 
 const BUILD_IN_INSTRUCTIONS = [
-  "Add function description",
-  "Improve Code readability",
-  "Improve Code performance",
-  "Reduce nesting",
-  "Split functions into smaller functions",
+  "Fix syntax errors",
+  "Add type hints to all function definitions",
+  "Remove logging statements",
+  "Remove dead code"
 ];
 
 const lastInstructionStateKey = "lastInstruction";
